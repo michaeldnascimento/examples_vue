@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+    <title>Document</title>
+    <style>
+        .verde {
+            background-color: green;
+        }
+
+        .branco {
+            background-color: white;
+        }
+
+        .negrito {
+            font-weight: bold;
+        }
+        
+        .azul {
+            background-color: blue;
+        }
+
+        .vermelho {
+            background-color: red;
+        }
+
+
+        .borda{
+            border: 1px solid;
+        }
+
+        .div-principal {
+            width: 200px;
+            height: 200px;
+        }
+
+
+        .div-comum {
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <!-- selecionar elementos html e suas propriedades por ID -->
+        <input type="text" id="inputTexto">
+        <select id="opcoes">
+            <option value="A">Opção A</option>
+            <option value="B">Opção B</option>
+            <option value="C">Opção C</option>
+        </select>
+        <div id="bloco">Conteudo interno da div</div>
+        <p id="paragrafo" style="color: red;">Parágrafo</p>
+        <button @click="selecionarElementoFilho()">Botão</button>
+
+        <!-- Diretivas V-On Implementando modificadores -->
+
+        <a href="https://michael.net.br"
+            target="_blank"
+            v-on:click.prevent="prevenirComportamentoPadrao()"
+        >
+        Link
+        </a>
+        Mensagem:  {{ msg }}
+        <hr>
+        <button @click.once="executarUmaVez()">Botão</button>
+        <p>Cliques: {{ cliques }}</p>
+        <hr>
+        <form action="" @submit.prevent.once="previnirUmaVez()"> prevent.once prevenir somente uma vez 
+            <button type="submit">Enviar</button>
+        </form>
+        <p>Formulario: {{ formulario }}</p>
+
+        <hr>
+        <input type="text" @keyup="capturandoTeclas($event)">  keyup metodo de capturas de teclas, se executar ex: keyup.x só dispara o evento se a tecla clicada for x 
+        <p>Teclas: {{ teclas }}</p>
+    
+        <!-- Diretiva v-on - se usar o @ antes é a mesma diretiva - chamando e passando paramentros para o método -->
+        <input type="text" @keyup="imprimirTexto('Enviando parametro', 5)">
+        usando o $event para envio de evento
+        <button v-on:click="mensagemAlerta($event, 'texto', 100)">Botão</button>
+
+        <!-- Data biding -->
+        {{ mensagem.substr(0,3) }}
+        {{ mensagem.length }}
+        {{ 2 + 2 }}
+         <input :value="2 + 2" :class="1 == 2 ? 'verde' : estilo"> exemplo de espressão
+         <input :value="2 + 2" :class="teste ? 'verde' : estilo"> exemplo de espressão
+
+        <!-- Sugar -->
+        <a :href="site" >Site</a>
+        <p :class="cor" class="negrito">Entendendo a diretiva v-bind</p>
+        <input type="text" :planceholder="instrucaoDePreenchimento" :value="valor">
+        <input type="checkbox" :checked="check">
+
+
+        <!-- v-bind -->
+        <a v-bind:href="site">Site</a>
+        <p v-bind:class="cor">Entendendo a diretiva v-bind</p>
+        <input type="text" v-bind:planceholder="instrucaoDePreenchimento" v-bind:value="valor">
+        <input type="checkbox" v-bind:checked="check">
+    
+
+        {{ somar() }}<br>
+        {{ subtrair() }}<br>
+        {{ multiplicar() }}<br>
+        {{ dividir() }}<br>
+ 
+        {{ mensagem }}<br>
+        Valor Total: {{ valorTotal }}<br>
+        Logado: {{ logado }}<br>
+        Hobbies: {{ hobbies[3] }}<br>
+        perfil: {{ perfil.site }}, {{ perfil.cursos[0].nome }}<br>
+
+    </div>
+
+    <script>
+
+    /** selecionar elementos html e suas propriedades por ID */
+        const vm = new Vue({
+
+        el: '#app',
+        data: {
+
+
+        },
+        methods: {
+                selecionarElementoFilho() {
+                    console.log(inputTexto.value)
+                    console.log(opcoes.value)
+                    console.log(paragrafo.style.color)
+                    console.log(bloco.innerHTML)
+                }
+            }
+        }
+
+        );
+
+     /** Diretivas V-On Implementando modificadores */
+        const vm = new Vue({
+
+            el: '#app',
+            data: {
+                msg: '',
+                cliques: 0,
+                formulario: '',
+                teclas: ''
+
+            },
+            methods: {
+                prevenirComportamentoPadrao() {
+                    event.preventDefault()
+                    this.msg = 'Comportamento padrão ativado'
+                },
+                executarUmaVez() {
+                    this.cliques++
+                },
+                previnirUmaVez() {
+                    this.formulario = 'Prevenindo o comportamento padrão'
+                },
+                capturandoTeclas(event) {
+                    this.teclas += event.key
+                }
+            }
+
+        });
+
+
+        /** Praticando com data, methods, template string, v-bind e v-on */
+        const vm = new Vue({
+
+        el: '#app',
+        data: {
+            cor: 'branco',
+            posicaoX: 0,
+            posicaoY: 0
+
+        },
+        methods: {
+            mudarCor(c) {
+                this.cor = c
+                console.log(c)
+            },
+            coordenadas(e) {
+                this.posicaoX =  e.clientX
+                this.posicaoY =  e.clientY
+                console.log(e.clientX, e.clientY)
+            }
+        }
+
+        });
+
+
+    const vm = new Vue({
+
+    el: '#app',
+    data: {
+        xyz: true
+    },
+    methods: {
+        imprimirTexto(t, n) {
+            console.log(t)
+            console.log(n)
+            //console.log(x)
+            console.log(this.xyz) // ou
+        },
+        mensagemAlerta(evento, p1, p2) {
+            alert('Mensagem alerta')
+            console.log(evento, p1, p2)
+        }
+    }
+
+    });
+
+
+
+
+    const vm = new Vue({
+
+    el: '#app',
+    data: {
+        mensagem: 'Expressão',
+        estilo: 'azul',
+        teste: true
+    },
+    methods: {}
+
+    });
+
+
+
+
+    const vm = new Vue({
+
+    el: '#app',
+    data: {
+        site: 'https://michael.net.br',
+        cor: 'verde',
+        instrucaoDePreenchimento: 'Placeholder - Diretiva v-bind',
+        valor: 'Entendendo a diretiva v-bind',
+        check: true
+    },
+    methods: {}
+
+    });
+
+        
+
+    const vm = new Vue({
+
+        el: '#app',
+        data: {
+            n1: 10, //através do this é possivel acessar os valores contido no datas
+            n2: 5
+        },
+        methods: {
+            somar: function somar() { //convencional
+                return this.n1 + this.n2;
+            },
+            subtrair: function() { //anônima
+                return this.n1 - this.n2;
+            },
+            multiplicar: () => { //arrow function
+                return this.n1 * this.n2; //contexto léxico
+            },
+            dividir(){ //forma enxuta de definir os pares de chave/valor
+                return this.n1 / this.n2;
+            }
+        }
+
+    });
+
+
+    const vm = new Vue({
+
+    el: '#app', //# para selecionar o id | . para selecionar por class
+    data: { //variaveis/atriputos reativos
+        mensagem: 'Primeiro template controlado pelo Vue', //string
+        valorTotal: 150.47, //numero
+        logado: false, //booleano
+        hobbies: [
+            'Dormir',
+            'Colecionar games',
+            'Correr',
+            'Trilas'
+        ],
+        perfil: {
+            nome: 'Michael D',
+            site: 'michael.net.br',
+            idade: 28,
+            cursos: [
+                {
+                    nome: 'Laravel',
+                    cargaHoraria: '50 Horas'
+                },
+                {
+                    nome: 'Bancos de Dados Relacionais',
+                    cargaHoraria: '40 Horas'
+                }
+            ]
+        }
+    }
+
+    }); // vm = ViewModel
+
+
+    </script>
+</body>
+</html>

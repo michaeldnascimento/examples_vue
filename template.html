@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+    <title>Document</title>
+    <style>
+        .verde {
+            background-color: green;
+        }
+
+        .branco {
+            background-color: white;
+        }
+
+        .negrito {
+            font-weight: bold;
+        }
+        
+        .azul {
+            background-color: blue;
+        }
+
+        .vermelho {
+            background-color: red;
+        }
+
+
+        .borda{
+            border: 1px solid;
+        }
+
+        .div-principal {
+            width: 200px;
+            height: 200px;
+        }
+
+
+        .div-comum {
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <!-- renderização condicional -->
+        <template v-if="saudacao">
+            <h1>Boas-vindas</h1>
+            <p> Conteúdo da tag <strong>Template</strong></p>
+        </template>
+
+        <ul>
+            <template v-for="n in 10">{{n}}
+            <p>2 x {{n}} = {{2*n}}</p>
+            </template>
+        </ul>
+
+
+    </div>
+
+    <script>
+
+    /**renderização condicional */
+    const vm = new Vue({
+
+    el: '#app',
+    data: {
+        saudacao: true
+    },
+    methods: {
+
+    }
+    });
+
+    </script>
+</body>
+</html>

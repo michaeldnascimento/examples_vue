@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>-->
+    <title>Document</title>
+    <style>
+        .verde {
+            background-color: green;
+        }
+
+        .branco {
+            background-color: white;
+        }
+
+        .negrito {
+            font-weight: bold;
+        }
+        
+        .azul {
+            background-color: blue;
+        }
+
+        .vermelho {
+            background-color: red;
+        }
+
+
+        .borda{
+            border: 1px solid;
+        }
+
+        .div-principal {
+            width: 200px;
+            height: 200px;
+        }
+
+
+        .div-comum {
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <!-- Usando o v-model - praticando two-way-data binding -->
+        {{ paciente }}<br>
+        <input type="text" v-bind:value="paciente" v-on:keyup="setPaciente($event)"> ex modo convencional
+        <input type="text" v-model="paciente"> usando o v-model muito mais simplificada sem combinação de diretivas
+        <hr>
+
+        <input type="radio" value="f" v-model="sexo"> Feminino
+        <input type="radio" value="m" v-model="sexo"> Masculino
+        <br> {{ sexo }}
+        <hr>
+
+        <select v-model="plano">
+            <option value="" disabled>Selecione um Plano</option>
+            <option value="1">Básico 1</option>
+            <option value="2">Básico 2</option>
+            <option value="3">Master</option>
+        </select>
+        <br> {{ plano }}
+
+        <hr>
+        <input type="checkbox" value="100" v-model="doencas"> Asma
+        <input type="checkbox" value="101" v-model="doencas"> Diabetes
+        <input type="checkbox" value="102" v-model="doencas"> Rinite
+        <br> {{ doencas }}
+
+        <hr>
+        <textarea v-model="diagnostico"></textarea>
+        <br> {{ diagnostico } 
+
+
+    </div>
+
+    <script>
+
+    /** Usando o v-model - praticando two-way-data binding */
+    const vm = new Vue({
+
+    el: '#app',
+    data: {
+        paciente: 'João',
+        sexo: '',
+        plano: '',
+        doencas: [],
+        diagnostico: ''
+    },
+    methods: {
+        setPaciente(e) {
+            this.paciente = e.target.value
+        }
+    }
+    });
+
+
+    </script>
+</body>
+</html>
